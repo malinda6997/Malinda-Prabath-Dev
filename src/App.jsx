@@ -1,18 +1,18 @@
-import React, { useRef, useEffect } from "react";
-import { ArrowUpRight } from "lucide-react";
+import React, { useRef, useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // මේක අනිවාර්යයි
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
-// ScrollTrigger එක register කිරීම
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const container = useRef();
+  const [loaderFinished, setLoaderFinished] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  // 1. Smooth Scroll (Lenis) Setup
+  // 1. Smooth Scroll
   useEffect(() => {
     const lenis = new Lenis();
     function raf(time) {
@@ -23,144 +23,184 @@ function App() {
     return () => lenis.destroy();
   }, []);
 
-  // 2. Animations
-  useGSAP(
-    () => {
-      // Hero Entrance
-      gsap.from(".reveal", {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: "power4.out",
+  // 2. Pre-loader
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setLoaderFinished(true), 500);
+          return 100;
+        }
+        return prev + 1;
       });
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
 
-      // About Section - Text Reveal on Scroll
-      gsap.from(".about-text", {
-        scrollTrigger: {
-          trigger: ".about-text",
-          start: "top 80%",
-          end: "top 30%",
-          scrub: true,
-        },
-        opacity: 0.1,
-        y: 20,
-        stagger: 0.1,
-      });
+  useGSAP(() => {
+    if (!loaderFinished) return;
 
-      // Custom Cursor
-      const moveCursor = (e) => {
-        gsap.to("#cursor", {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.4,
-          ease: "power2.out",
-        });
-      };
+    // Vertical Line Animation
+    gsap.from(".v-line", {
+      scaleY: 0,
+      transformOrigin: "top",
+      duration: 1.5,
+      ease: "power4.out",
+    });
 
-      window.addEventListener("mousemove", moveCursor);
-      return () => window.removeEventListener("mousemove", moveCursor);
-    },
-    { scope: container },
-  );
-
-  const projects = [
-    {
-      title: "Project One",
-      category: "Web Design",
-      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
-    },
-    {
-      title: "Project Two",
-      category: "Development",
-      img: "https://images.unsplash.com/photo-1635339001026-6194469446f2?q=80&w=1000&auto=format&fit=crop",
-    },
-  ];
+    // Content Reveal
+    gsap.from(".reveal-text", {
+      x: -50,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".reveal-text",
+        start: "top 80%",
+      },
+    });
+  }, [loaderFinished]);
 
   return (
     <div
       ref={container}
-      className="bg-[#0a0a0a] text-[#ededed] min-h-screen selection:bg-white selection:text-black"
+      className="bg-[#0c0c0e] text-[#a5a5a5] min-h-screen font-mono selection:bg-[#6366f1] selection:text-white"
     >
-      {/* Custom Cursor */}
-      <div
-        id="cursor"
-        className="fixed top-0 left-0 w-5 h-5 bg-white rounded-full pointer-events-none z-[999] mix-blend-difference hidden md:block -translate-x-1/2 -translate-y-1/2"
-      ></div>
+      {/* Loader */}
+      {!loaderFinished && (
+        <div className="fixed inset-0 z-[10000] bg-[#0c0c0e] flex items-center justify-center">
+          <div className="text-2xl font-bold text-white tracking-[0.5em] uppercase">
+            YASIO.PRO {progress}%
+          </div>
+        </div>
+      )}
+
+      {/* Vertical Line - Yasio Signature */}
+      <div className="v-line fixed left-[10%] top-0 w-[1px] h-full bg-[#333333] z-50">
+        <div className="absolute top-0 left-[-4px] w-2 h-2 bg-[#6366f1] rounded-full shadow-[0_0_10px_#6366f1]"></div>
+      </div>
 
       {/* Navbar */}
-      <nav className="p-8 flex justify-between items-center fixed top-0 w-full z-50 mix-blend-difference">
-        <div className="text-lg font-bold tracking-tighter">M.PRABATH</div>
-        <div className="flex gap-8 text-sm font-medium uppercase tracking-widest opacity-70">
-          <a href="#work" className="hover:opacity-100 transition">
-            Work
+      <nav className="fixed top-0 w-full p-8 flex justify-between items-center z-[100] px-[12%]">
+        <div className="text-white font-bold text-xl tracking-tighter cursor-pointer">
+          <span className="text-[#6366f1]">&lt;</span> PRABATH{" "}
+          <span className="text-[#6366f1]">/&gt;</span>
+        </div>
+        <div className="flex gap-6 text-[11px] uppercase tracking-widest font-bold">
+          <a href="#work" className="hover:text-white transition">
+            Work /&gt;
           </a>
-          <a href="#about" className="hover:opacity-100 transition">
-            About
+          <a href="#lab" className="hover:text-white transition">
+            Lab /&gt;
+          </a>
+          <a href="#about" className="hover:text-white transition">
+            About /&gt;
+          </a>
+          <a href="#contact" className="hover:text-white transition">
+            Contact /&gt;
           </a>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="h-screen flex flex-col justify-center px-10 md:px-20">
-        <div className="overflow-hidden">
-          <h1 className="reveal text-[12vw] md:text-[8vw] font-bold leading-[0.9] tracking-tighter uppercase">
-            Creative
-          </h1>
-        </div>
-        <div className="overflow-hidden">
-          <h1 className="reveal text-[12vw] md:text-[8vw] font-bold leading-[0.9] tracking-tighter uppercase text-gray-500">
-            Developer
-          </h1>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="px-10 md:px-20 py-40 bg-zinc-950/50">
-        <div className="max-w-4xl">
-          <h2 className="text-zinc-500 uppercase text-xs mb-10 tracking-[0.3em]">
-            01 / Introduction
-          </h2>
-          <p className="about-text text-3xl md:text-5xl font-medium leading-tight">
-            I am a digital craftsman focusing on{" "}
-            <span className="text-white">minimalist design</span> and{" "}
-            <span className="text-white">high-performance</span> code.
-            Transforming complex ideas into simple, beautiful experiences.
+      <main className="pl-[15%] pr-[10%]">
+        {/* HERO SECTION */}
+        <section className="h-screen flex flex-col justify-center">
+          <p className="text-[#6366f1] mb-4 uppercase tracking-[0.3em] text-xs">
+            Start /&gt;
           </p>
-        </div>
-      </section>
+          <h1 className="text-white text-5xl md:text-7xl font-bold leading-tight max-w-4xl reveal-text">
+            Hi, my name is <span className="text-[#6366f1]">M.Prabath</span>
+            <br />i <span className="italic">design</span> and develop mo/ion
+          </h1>
+          <p className="mt-8 opacity-50 reveal-text">Let me show You...</p>
+        </section>
 
-      {/* Work Section */}
-      <section id="work" className="px-10 md:px-20 py-20">
-        <h2 className="text-4xl font-bold uppercase mb-16 tracking-tighter">
-          Selected Work
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {projects.map((item, index) => (
-            <div key={index} className="group cursor-pointer">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-zinc-900">
-                <img
-                  src={item.img}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  alt={item.title}
-                />
-                <div className="absolute top-6 right-6 p-3 bg-white/10 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all">
-                  <ArrowUpRight size={24} />
-                </div>
-              </div>
-              <div className="mt-6">
-                <h3 className="text-2xl font-bold uppercase">{item.title}</h3>
-                <p className="text-zinc-500">{item.category}</p>
-              </div>
+        {/* WORK SECTION (Impact Mask Here) */}
+        <section
+          id="work"
+          className="min-h-screen py-20 border-t border-[#1a1a1a]"
+        >
+          <p className="text-[#6366f1] mb-10 uppercase tracking-[0.3em] text-xs">
+            Work /&gt;
+          </p>
+          <div className="relative w-full h-[60vh] overflow-hidden rounded-lg">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source
+                src="https://assets.mixkit.co/videos/preview/mixkit-abstract-flowing-blue-and-purple-gradient-background-23424-large.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div className="absolute inset-0 bg-black mix-blend-multiply flex items-center justify-center">
+              <h2 className="text-[15vw] font-black bg-white text-black w-full h-full flex items-center justify-center">
+                IMPACT
+              </h2>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <footer className="h-[40vh] flex items-center justify-center border-t border-white/5">
-        <p className="opacity-30 uppercase tracking-widest text-xs">
-          Scroll to Top
-        </p>
+        {/* ABOUT SECTION (Developer Style) */}
+        <section id="about" className="py-20 border-t border-[#1a1a1a]">
+          <p className="text-[#6366f1] mb-10 uppercase tracking-[0.3em] text-xs">
+            About /&gt;
+          </p>
+          <div className="bg-[#16161a] p-10 rounded-lg font-mono text-sm border border-[#1a1a1a] shadow-2xl">
+            <p className="text-[#6366f1]">
+              class <span className="text-white">Prabath</span> {"{"}
+            </p>
+            <p className="pl-6 text-gray-500">// I can, because I did.</p>
+            <p className="pl-6 text-white">
+              <span className="text-[#6366f1]">constructor</span>() {"{"}
+            </p>
+            <p className="pl-12">
+              this.<span className="text-[#6366f1]">name</span> ={" "}
+              <span className="text-green-400">'M. Prabath'</span>
+            </p>
+            <p className="pl-12">
+              this.<span className="text-[#6366f1]">email</span> ={" "}
+              <span className="text-green-400">'hello@prabath.dev'</span>
+            </p>
+            <p className="pl-6 text-white">{"}"}</p>
+            <p className="text-[#6366f1]">{"}"}</p>
+          </div>
+        </section>
+
+        {/* CONTACT SECTION */}
+        <section id="contact" className="h-[80vh] flex flex-col justify-center">
+          <p className="text-[#6366f1] mb-10 uppercase tracking-[0.3em] text-xs">
+            Contact /&gt;
+          </p>
+          <h2 className="text-4xl md:text-6xl text-white font-bold mb-10">
+            Find me on:
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 underline">
+            <a href="#" className="hover:text-[#6366f1]">
+              LinkedIn
+            </a>
+            <a href="#" className="hover:text-[#6366f1]">
+              GitHub
+            </a>
+            <a href="#" className="hover:text-[#6366f1]">
+              Twitter
+            </a>
+            <a href="#" className="hover:text-[#6366f1]">
+              Instagram
+            </a>
+          </div>
+          <button className="mt-20 bg-[#6366f1] text-white px-10 py-4 rounded-full font-bold self-start hover:scale-105 transition shadow-[0_0_20px_#6366f1]">
+            GET IN TOUCH
+          </button>
+        </section>
+      </main>
+
+      <footer className="p-10 text-[10px] opacity-30 text-center uppercase tracking-widest pl-[10%]">
+        © Made with &lt;/&gt; by M.Prabath. Circa 2026.
       </footer>
     </div>
   );
