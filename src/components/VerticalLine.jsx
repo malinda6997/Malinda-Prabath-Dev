@@ -13,14 +13,22 @@ const VerticalLine = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // මෙතන අනිවාර්යයෙන්ම "about" සහ "contact" තියෙන්න ඕනේ
       const sections = ["hero", "work", "about", "contact"];
+
       for (const id of sections) {
         const element = document.getElementById(id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Section එක screen එකේ ඉහළට ආවම නම මාරු කරන්න
-          if (rect.top <= 400 && rect.bottom >= 400) {
-            setCurrentSection(id.toUpperCase());
+
+          // Section එක screen එක මැදට ආවම (300px-400px අතර) නම මාරු කරනවා
+          if (rect.top <= 350 && rect.bottom >= 350) {
+            // "about" හමු වුණොත් ඒක "ABOUT ME" විදිහට පෙන්වන්න හදපු logic එක
+            if (id === "about") {
+              setCurrentSection("ABOUT ME");
+            } else {
+              setCurrentSection(id.toUpperCase());
+            }
             break;
           }
         }
@@ -39,7 +47,7 @@ const VerticalLine = () => {
         style={{ scaleY, height: "100%" }}
       />
 
-      {/* Label Section - දැන් මේක line එකේ වම් පැත්තට (Left) එනවා */}
+      {/* Label Section */}
       <div className="absolute top-[18%] right-0 flex flex-col items-end pr-6">
         <AnimatePresence mode="wait">
           <motion.div
