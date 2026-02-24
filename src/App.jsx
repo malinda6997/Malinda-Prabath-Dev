@@ -10,79 +10,104 @@ import Contact from "./components/Contact";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.1 }); // smooth scroll එකට
+    // Smooth Scroll (Lenis)
+    const lenis = new Lenis({ lerp: 0.1 });
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+
+    // Active Section Tracking Logic
+    const handleActiveSection = () => {
+      const sections = ["hero", "work", "about", "contact"];
+      const scrollPosition = window.scrollY + 300;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const height = element.offsetHeight;
+
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + height
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleActiveSection);
+    return () => {
+      window.removeEventListener("scroll", handleActiveSection);
+    };
   }, []);
 
   return (
-    <div className="bg-[#0c0c0e] min-h-screen text-white">
+    <div className="bg-[#0c0c0e] min-h-screen text-white selection:bg-[#6366f1]/30 overflow-x-hidden">
+      {/* Loader */}
       {loading && <Loader onFinished={() => setLoading(false)} />}
 
-      <VerticalLine />
+      <div
+        className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-1000`}
+      >
+        {/* අනිවාර්යයෙන් VerticalLine.jsx එකත් update කරන්න ඕනේ mobile වල පේන්න */}
+        <VerticalLine />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full p-8 flex justify-between items-center z-[100] px-[4%]">
-        <div className="text-white font-black text-xl tracking-tighter cursor-pointer">
-          &lt;MALINDA<span className="text-[#6366f1]">/</span>&gt;
-        </div>
+        {/* Navbar */}
+        <nav className="absolute top-0 w-full p-6 md:p-8 flex justify-between items-center z-[100] px-[6%] md:px-[4%]">
+          <div className="text-white font-black text-lg md:text-xl tracking-tighter cursor-pointer">
+            &lt;MALINDA<span className="text-[#6366f1]">/</span>&gt;
+          </div>
 
-        <div className="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-[0.3em] pr-[4%]">
-          <a
-            href="#hero"
-            className="text-white hover:text-[#6366f1] transition"
-          >
-            Start /&gt;
-          </a>
-          <a href="#work" className="text-white/30 hover:text-white transition">
-            Work /&gt;
-          </a>
-          <a href="#lab" className="text-white/30 hover:text-white transition">
-            Lab /&gt;
-          </a>
-          <a
-            href="#about"
-            className="text-white/30 hover:text-white transition"
-          >
-            About /&gt;
-          </a>
-          <a
-            href="#contact"
-            className="text-white/30 hover:text-white transition"
-          >
-            Contact /&gt;
-          </a>
-        </div>
-      </nav>
+          <div className="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-[0.3em] pr-[4%]">
+            {[
+              { name: "Start", id: "hero" },
+              { name: "Work", id: "work" },
+              { name: "About", id: "about" },
+              { name: "Contact", id: "contact" },
+            ].map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`transition-all duration-300 ${
+                  activeSection === item.id
+                    ? "text-white border-b border-[#6366f1] pb-1"
+                    : "text-white/30 hover:text-white"
+                }`}
+              >
+                {item.name} /&gt;
+              </a>
+            ))}
+          </div>
+        </nav>
 
-      {/* Main Content */}
-      <main className="ml-[18%] pr-[4%]">
-        {/* 1. Hero Section */}
-        <div id="hero">
-          <Hero />
-        </div>
+        {/* Main Content - Mobile වලදී Margin හරි ගැස්සුවා */}
+        <main className="ml-[12%] md:ml-[18%] pr-[5%] md:pr-[4%] text-left">
+          <section id="hero" className="w-full">
+            <Hero />
+          </section>
 
-        {/* 2. Work Section */}
-        <div id="work">
-          <Work />
-        </div>
+          <section id="work" className="w-full">
+            <Work />
+          </section>
 
-        {/* 3. About Sections (මේ දෙකම එකම ID එකක් යටතට ගත්තා) */}
-        <div id="about">
-          <AboutText />
-          <AboutDetails />
-        </div>
+          <section id="about" className="w-full">
+            <AboutText />
+            <AboutDetails />
+          </section>
 
-        {/* 4. Contact Section */}
-        <div id="contact">
-          <Contact />
-        </div>
-      </main>
+          <section id="contact" className="w-full">
+            <Contact />
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
