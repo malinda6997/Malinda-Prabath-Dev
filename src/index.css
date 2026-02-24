@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+#cursor {
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+/* ScrollTrigger එක වැඩ කරන්න ඕනේ නිසා smooth scroll එක lenis වලින් හදලා තියෙන්නේ */
+html.lenis {
+    height: auto;
+}
