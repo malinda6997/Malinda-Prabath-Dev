@@ -4,6 +4,7 @@ import VerticalLine from "./components/VerticalLine";
 import Hero from "./components/Hero";
 import Loader from "./components/Loader";
 import Work from "./components/Work";
+import AboutText from "./components/AboutText";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,7 @@ function App() {
       <main className="ml-[18%] pr-[4%]">
         <Hero />
         <Work />
+        <AboutText/>
       </main>
     </div>
   );
