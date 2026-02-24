@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@theme {
+    /* Fonts setup */
+    --font-inter: "Inter", sans-serif;
+    --font-serif-italic: "Playfair Display", serif;
+    --font-mono-custom: "JetBrains Mono", monospace;
+
+    /* Custom Color */
+    --color-brand: #6366f1;
+}
+
+/* Base setup */
+@layer base {
+    body {
+        @apply bg-[#0c0c0e] text-[#a5a5a5] font-inter antialiased;
+    }
+}
+
+/* Custom Scrollbar (Optional) */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0c0c0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6366f1;
+}
