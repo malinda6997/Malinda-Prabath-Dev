@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// Video එක import කරගන්න (Path එක ඔයාගේ folder එකේ හැටියට බලන්න)
+import heroVideo from "../assets/videos/hero-video.mp4";
 
 const Hero = () => {
   const phrases = [
@@ -38,28 +40,42 @@ const Hero = () => {
   }, [index]);
 
   return (
-    /* මෙතන id="hero" අනිවාර්යයෙන්ම තියෙන්න ඕනේ VerticalLine එකට අඳුනගන්න */
     <section
       id="hero"
-      className="min-h-screen flex flex-col justify-center pl-[2%]"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden pl-[2%]"
     >
-      <div className="max-w-5xl">
+      {/* --- Background Video Section --- */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-30" // opacity එක 30% වගේ තියන්න එතකොට අකුරු ලස්සනට පේනවා
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        {/* Video එක උඩින් යන කළු පාට gradient එකක් (අකුරු තවත් පැහැදිලි වෙන්න) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0e] via-transparent to-[#0c0c0e] opacity-80"></div>
+      </div>
+
+      {/* --- Content Section (Content එක video එකට උඩින් තියෙන්න z-10 දානවා) --- */}
+      <div className="relative z-10 max-w-5xl">
         <h1 className="text-white text-5xl md:text-[95px] font-black leading-[0.85] tracking-tighter">
-          Hi, my name is <span className="text-[#6366f1]">Malinda</span>
+          Hi, my name is <span className="text-brand">Malinda</span>
           <br />
           <span className="flex flex-wrap items-baseline gap-x-4">
             I{" "}
-            <span className="font-serif-italic italic text-[#6366f1] lowercase">
+            <span className="font-serif-italic italic text-brand lowercase">
               design
             </span>{" "}
             and develop
           </span>
           <div className="flex items-center mt-2">
-            <span className="font-mono-custom text-[0.65em] opacity-80 text-white lowercase">
+            <span className="font-mono-custom text-[0.65em] opacity-80 text-white lowercase italic">
               {displayText}
             </span>
-            {/* Typing Cursor */}
-            <span className="inline-block w-[6px] h-[45px] md:h-[70px] bg-[#6366f1] ml-4 animate-pulse"></span>
+            <span className="inline-block w-[6px] h-[45px] md:h-[70px] bg-brand ml-4 animate-pulse"></span>
           </div>
         </h1>
 
