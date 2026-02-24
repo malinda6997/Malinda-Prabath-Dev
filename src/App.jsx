@@ -9,7 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenis = new Lenis({ lerp: 0.1 }); // smooth scroll එකට
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -18,20 +18,18 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#0c0c0e] min-h-screen overflow-x-hidden">
+    <div className="bg-[#0c0c0e] min-h-screen">
       {loading && <Loader onFinished={() => setLoading(false)} />}
 
       <VerticalLine />
 
-      {/* Header Navigation */}
-      <nav className="fixed top-0 w-full p-10 flex justify-between items-center z-[100] px-[6%]">
-        {/* Logo - Left Aligned */}
-        <div className="text-white font-black text-xl tracking-tighter hover:scale-105 transition-transform cursor-pointer">
+      {/* Navigation - px-[4%] නිසා Logo එක වම් කෙළවරටම යනවා */}
+      <nav className="fixed top-0 w-full p-8 flex justify-between items-center z-[100] px-[4%]">
+        <div className="text-white font-black text-xl tracking-tighter cursor-pointer">
           &lt;MALINDA<span className="text-brand">/</span>&gt;
         </div>
 
-        {/* Menu - Right Aligned */}
-        <div className="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-[0.4em]">
+        <div className="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-[0.3em] pr-[4%]">
           <a href="#" className="text-white border-b border-brand pb-1">
             Start /&gt;
           </a>
@@ -50,8 +48,8 @@ function App() {
         </div>
       </nav>
 
-      {/* Main Content - Line එකට පස්සේ එන විදිහට Margin එක හැදුවා */}
-      <main className="ml-[15%]">
+      {/* Main Content - Line එක ඇතුළට ගිය නිසා margin එක ml-[18%] කරා */}
+      <main className="ml-[18%] pr-[4%]">
         <Hero />
         <Work />
       </main>

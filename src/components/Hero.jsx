@@ -38,26 +38,37 @@ const Hero = () => {
   }, [index]);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center pl-[5%]">
-      <div className="max-w-4xl">
-        {" "}
-        {/* width එක පොඩ්ඩක් අඩු කරා */}
-        <h1 className="text-white text-5xl md:text-7xl font-black leading-[1.1] tracking-tighter">
-          Hi, my name is <span className="text-brand">Malinda</span>
-          <br />I{" "}
-          <span className="font-serif-italic italic text-brand lowercase">
-            design
-          </span>{" "}
-          and develop <br />
-          <span className="font-mono-custom text-[0.75em] opacity-80">
-            {displayText}
+    /* මෙතන id="hero" අනිවාර්යයෙන්ම තියෙන්න ඕනේ VerticalLine එකට අඳුනගන්න */
+    <section
+      id="hero"
+      className="min-h-screen flex flex-col justify-center pl-[2%]"
+    >
+      <div className="max-w-5xl">
+        <h1 className="text-white text-5xl md:text-[95px] font-black leading-[0.85] tracking-tighter">
+          Hi, my name is <span className="text-[#6366f1]">Malinda</span>
+          <br />
+          <span className="flex flex-wrap items-baseline gap-x-4">
+            I{" "}
+            <span className="font-serif-italic italic text-[#6366f1] lowercase">
+              design
+            </span>{" "}
+            and develop
           </span>
-          <span className="inline-block w-2 h-8 md:h-12 bg-brand ml-4 align-middle animate-pulse"></span>
+          <div className="flex items-center mt-2">
+            <span className="font-mono-custom text-[0.65em] opacity-80 text-white lowercase">
+              {displayText}
+            </span>
+            {/* Typing Cursor */}
+            <span className="inline-block w-[6px] h-[45px] md:h-[70px] bg-[#6366f1] ml-4 animate-pulse"></span>
+          </div>
         </h1>
-        <p className="mt-10 text-white/20 text-[10px] font-bold uppercase tracking-[0.6em] flex items-center gap-4">
-          <span className="w-10 h-[1px] bg-white/10"></span>
-          Let me show You...
-        </p>
+
+        <div className="mt-16 flex flex-col gap-2">
+          <p className="text-white/20 text-[10px] font-bold uppercase tracking-[0.6em] flex items-center gap-4">
+            <span className="w-12 h-[1px] bg-white/10"></span>
+            Let me show You...
+          </p>
+        </div>
       </div>
     </section>
   );
