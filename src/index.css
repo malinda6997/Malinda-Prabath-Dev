@@ -13,7 +13,7 @@
 /* Base setup */
 @layer base {
     body {
-        @apply bg-[#0c0c0e] text-[#a5a5a5] font-inter antialiased;
+        @apply bg-transparent text-[#a5a5a5] font-inter antialiased;
     }
 }
 

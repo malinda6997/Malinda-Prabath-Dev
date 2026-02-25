@@ -18,7 +18,7 @@ const Loader = ({ onFinished }) => {
   }, [onFinished]);
 
   return (
-    <div className="fixed inset-0 z-[10000] bg-[#0c0c0e] flex items-center justify-center">
+    <div className="fixed inset-0 z-[10000] bg-transparent flex items-center justify-center">
       <div className="text-white font-mono tracking-[1em]">{progress}%</div>
     </div>
   );

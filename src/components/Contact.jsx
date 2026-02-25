@@ -40,7 +40,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-24 md:py-32 px-[6%] md:px-[5%] bg-[#0c0c0e] overflow-hidden"
+      className="relative min-h-screen py-24 md:py-32 px-[6%] md:px-[5%] bg-transparent overflow-hidden"
     >
       {/* Mobile එකේදී margin-left එක අඩු කරලා desktop එකේදී md:ml-[15%] තැබුවා */}
       <div className="max-w-6xl md:ml-[15%] text-left">

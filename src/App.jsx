@@ -7,13 +7,13 @@ import Work from "./components/Work";
 import AboutText from "./components/AboutText";
 import AboutDetails from "./components/AboutDetails";
 import Contact from "./components/Contact";
+import bgVideo from "./assets/videos/hero-video.mp4";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    // Smooth Scroll (Lenis)
     const lenis = new Lenis({ lerp: 0.1 });
     function raf(time) {
       lenis.raf(time);
@@ -21,7 +21,6 @@ function App() {
     }
     requestAnimationFrame(raf);
 
-    // Active Section Tracking Logic
     const handleActiveSection = () => {
       const sections = ["hero", "work", "about", "contact"];
       const scrollPosition = window.scrollY + 300;
@@ -31,7 +30,6 @@ function App() {
         if (element) {
           const offsetTop = element.offsetTop;
           const height = element.offsetHeight;
-
           if (
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + height
@@ -44,20 +42,36 @@ function App() {
     };
 
     window.addEventListener("scroll", handleActiveSection);
-    return () => {
-      window.removeEventListener("scroll", handleActiveSection);
-    };
+    return () => window.removeEventListener("scroll", handleActiveSection);
   }, []);
 
   return (
-    <div className="bg-[#0c0c0e] min-h-screen text-white selection:bg-[#6366f1]/30 overflow-x-hidden">
+    <div className="bg-[#0c0c0e] min-h-screen text-white selection:bg-[#6366f1]/30 overflow-x-hidden relative">
+      {/* Global Background Video Container */}
+      {!loading && (
+        <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none bg-[#0c0c0e]">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-25" 
+          >
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+
+          {/* නියම Dark Look එක එන්න Overlay එක මෙතනටයි දාන්න ඕනේ */}
+          <div className="absolute inset-0 bg-[#0c0c0e]/50" /> 
+        </div>
+      )}
+      
+
       {/* Loader */}
       {loading && <Loader onFinished={() => setLoading(false)} />}
 
       <div
-        className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-1000`}
+        className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-1000 relative z-10`}
       >
-        {/* අනිවාර්යයෙන් VerticalLine.jsx එකත් update කරන්න ඕනේ mobile වල පේන්න */}
         <VerticalLine />
 
         {/* Navbar */}
@@ -88,8 +102,8 @@ function App() {
           </div>
         </nav>
 
-        {/* Main Content - Mobile වලදී Margin හරි ගැස්සුවා */}
-        <main className="ml-[12%] md:ml-[18%] pr-[5%] md:pr-[4%] text-left">
+        {/* Main Content */}
+        <main className="ml-[12%] md:ml-[18%] pr-[5%] md:pr-[4%] text-left relative z-10 bg-transparent">
           <section id="hero" className="w-full">
             <Hero />
           </section>
