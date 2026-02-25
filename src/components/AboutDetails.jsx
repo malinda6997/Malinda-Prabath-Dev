@@ -38,12 +38,23 @@ const TypingLine = ({
 
 const AboutDetails = () => {
   const allSkills = [
+    "AWS Cloud",
+    "Docker",
+    "Terraform",
+    "Jenkins",
     "React",
-    "Next.js",
-    "Tailwind",
-    "Node.js",
+    "Python",
+    "SQL",
     "MongoDB",
-    "Framer Motion",
+    "Figma",
+    "Git",
+    "Linux",
+    "Playwright",
+    "Photoshop",
+    "Computer Hardware",
+    "Computer Networking",
+    "Jira",
+    "Microsoft Office",
   ];
   const skillString = `'${allSkills.join("', '")}'`;
 
@@ -58,7 +69,7 @@ const AboutDetails = () => {
           delay={0.2}
         />
 
-        {/* 02-07: Constructor */}
+        {/* 02-06: Constructor */}
         <div className="mt-2">
           <TypingLine
             lineNumber="02"
@@ -81,7 +92,7 @@ const AboutDetails = () => {
             />
             <TypingLine
               lineNumber="05"
-              text="    this.status = 'Open to work';"
+              text="    this.status = 'IT Technical Support Associate';"
               colorClass="text-white"
               delay={1.4}
             />
@@ -112,141 +123,153 @@ const AboutDetails = () => {
             <div className="ml-4">
               <TypingLine
                 lineNumber="09"
-                text="{ '2020-2023' : 'BSc in Computer Science - University of Colombo' },"
+                text="{ 'Reading' : 'BSc (Hons) Business Informations Systems - Cardiff Metropolitan University' },"
                 colorClass="text-green-400"
                 delay={2.6}
               />
               <TypingLine
                 lineNumber="10"
-                text="{ '2018-2020' : 'G.C.E Advanced Level (Physical Science)' }"
+                text="{ '2023-2024' : 'Higher National Diploma in Information Systems - NIBM' },"
                 colorClass="text-green-400"
                 delay={2.9}
               />
+              <TypingLine
+                lineNumber="11"
+                text="{ '2021-2022' : 'Diploma in Computer System Design - NIBM' }"
+                colorClass="text-green-400"
+                delay={3.2}
+              />
             </div>
             <TypingLine
-              lineNumber="11"
+              lineNumber="12"
               text="    ];"
               colorClass="text-purple-400"
-              delay={3.2}
+              delay={3.5}
             />
           </div>
           <TypingLine
-            lineNumber="12"
-            text="  }"
-            colorClass="text-yellow-300"
-            delay={3.5}
-          />
-        </div>
-
-        {/* 13-18: Achievement Section */}
-        <div className="mt-4">
-          <TypingLine
             lineNumber="13"
-            text="  achievements() {"
+            text="  }"
             colorClass="text-yellow-300"
             delay={3.8}
           />
+        </div>
+
+        {/* 14-22: Work Experience Section */}
+        <div className="mt-4">
+          <TypingLine
+            lineNumber="14"
+            text="  workExperience() {"
+            colorClass="text-yellow-300"
+            delay={4.1}
+          />
           <div className="ml-4 border-l border-white/5 pl-2">
             <TypingLine
-              lineNumber="14"
+              lineNumber="15"
               text="    return ["
               colorClass="text-purple-400"
-              delay={4.1}
+              delay={4.4}
             />
             <div className="ml-4">
               <TypingLine
-                lineNumber="15"
-                text="'Winner - Inter University Hackathon 2024',"
-                colorClass="text-green-400"
-                delay={4.4}
-              />
-              <TypingLine
                 lineNumber="16"
-                text="'Certified Full Stack Developer - Meta'"
+                text="{ 'Nov 2024 - Sep 2025' : 'IT Technical Support Associate - NexmatrixLab' },"
                 colorClass="text-green-400"
                 delay={4.7}
               />
-            </div>
-            <TypingLine
-              lineNumber="17"
-              text="    ];"
-              colorClass="text-purple-400"
-              delay={5.0}
-            />
-          </div>
-          <TypingLine
-            lineNumber="18"
-            text="  }"
-            colorClass="text-yellow-300"
-            delay={5.3}
-          />
-        </div>
-
-        {/* 19-24: Languages Section */}
-        <div className="mt-4">
-          <TypingLine
-            lineNumber="19"
-            text="  languages() {"
-            colorClass="text-yellow-300"
-            delay={5.6}
-          />
-          <div className="ml-4 border-l border-white/5 pl-2">
-            <TypingLine
-              lineNumber="20"
-              text="    return ["
-              colorClass="text-purple-400"
-              delay={5.9}
-            />
-            <div className="ml-4">
               <TypingLine
-                lineNumber="21"
-                text="'Sinhala (Native)', 'English (Professional)', 'Japanese (Basic)'"
+                lineNumber="17"
+                text="{ 'May 2024 - Nov 2024' : 'Intern UI UX Designer - NexmatrixLab' }"
                 colorClass="text-green-400"
-                delay={6.2}
+                delay={5.0}
               />
             </div>
             <TypingLine
-              lineNumber="22"
+              lineNumber="18"
               text="    ];"
               colorClass="text-purple-400"
-              delay={6.5}
+              delay={5.3}
             />
           </div>
           <TypingLine
-            lineNumber="23"
+            lineNumber="19"
             text="  }"
             colorClass="text-yellow-300"
-            delay={6.8}
+            delay={5.6}
           />
         </div>
 
-        {/* 24-25: Skills & Closing */}
+        {/* 20-26: Achievement Section */}
         <div className="mt-4">
           <TypingLine
-            lineNumber="24"
-            text="  skills() { return [ "
+            lineNumber="20"
+            text="  achievements() {"
             colorClass="text-yellow-300"
-            delay={7.1}
+            delay={5.9}
           />
-          <TypingLine
-            lineNumber=""
-            text={`    ${skillString}`}
-            colorClass="text-green-400"
-            delay={7.4}
-          />
+          <div className="ml-4 border-l border-white/5 pl-2">
+            <TypingLine
+              lineNumber="21"
+              text="    return ["
+              colorClass="text-purple-400"
+              delay={6.2}
+            />
+            <div className="ml-4">
+              <TypingLine
+                lineNumber="22"
+                text="'4th Place Winner - REVOLUX 3.0 UI/UX Hackathon 2024',"
+                colorClass="text-green-400"
+                delay={6.5}
+              />
+              {/* <TypingLine
+                lineNumber="23"
+                text="'Awarded Certificate for designing user-centric UI/UX solutions'"
+                colorClass="text-green-400"
+                delay={6.8}
+              /> */}
+            </div>
+            <TypingLine
+              lineNumber="24"
+              text="    ];"
+              colorClass="text-purple-400"
+              delay={7.1}
+            />
+          </div>
           <TypingLine
             lineNumber="25"
-            text="  ] }"
+            text="  }"
+            colorClass="text-yellow-300"
+            delay={7.4}
+          />
+        </div>
+
+        {/* 26-29: Skills & Closing */}
+        <div className="mt-4">
+          <TypingLine
+            lineNumber="26"
+            text="  skills() { return ["
             colorClass="text-yellow-300"
             delay={7.7}
+          />
+          <TypingLine
+            lineNumber="27"
+            text={`    ${skillString}`}
+            colorClass="text-green-400"
+            delay={8.0}
+          />
+          <TypingLine
+            lineNumber="28"
+            text="  ] }"
+            colorClass="text-yellow-300"
+            delay={8.3}
           />
         </div>
 
         <TypingLine
-          lineNumber="26"
+          lineNumber="29"
           text="}"
           colorClass="text-purple-400"
-          delay={8.0}
+          delay={8.6}
         />
       </div>
     </section>
