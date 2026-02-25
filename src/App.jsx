@@ -7,6 +7,7 @@ import Work from "./components/Work";
 import AboutText from "./components/AboutText";
 import AboutDetails from "./components/AboutDetails";
 import Contact from "./components/Contact";
+import Crosshair from "./components/Crosshair"; // නම හරියටම Crosshair කියලා ගත්තා
 import bgVideo from "./assets/videos/hero-video.mp4";
 
 function App() {
@@ -47,6 +48,14 @@ function App() {
 
   return (
     <div className="bg-[#0c0c0e] min-h-screen text-white selection:bg-[#6366f1]/30 overflow-x-hidden relative">
+      {/* 1. Crosshair - මේක තමයි අර Target එක පෙන්වන්නේ */}
+      {!loading && (
+        <Crosshair
+          color="#6366f1" // අයියගේ Indigo theme එකට ගැළපෙන්න දුන්නා
+          targeted={true}
+        />
+      )}
+
       {/* Global Background Video Container */}
       {!loading && (
         <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none bg-[#0c0c0e]">
@@ -55,20 +64,18 @@ function App() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-25" 
+            className="w-full h-full object-cover opacity-25"
           >
             <source src={bgVideo} type="video/mp4" />
           </video>
-
-          {/* නියම Dark Look එක එන්න Overlay එක මෙතනටයි දාන්න ඕනේ */}
-          <div className="absolute inset-0 bg-[#0c0c0e]/50" /> 
+          <div className="absolute inset-0 bg-[#0c0c0e]/50" />
         </div>
       )}
-      
 
       {/* Loader */}
       {loading && <Loader onFinished={() => setLoading(false)} />}
 
+      {/* Main UI Content */}
       <div
         className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-1000 relative z-10`}
       >
