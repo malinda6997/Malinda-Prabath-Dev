@@ -61,7 +61,7 @@ const VerticalLine = () => {
               duration: 0.2,
               ease: [0.23, 1, 0.32, 1], // Custom cubic-bezier for a "snappy" feel
             }}
-            className="text-[#6366f1] text-[9px] md:text-[10px] font-black tracking-[0.3em] md:tracking-[0.4em] uppercase whitespace-nowrap bg-[#0c0c0e]/40 py-1 px-2 rounded-sm"
+            className="text-[#6366f1] text-[9px] md:text-[10px] font-black tracking-[0.3em] md:tracking-[0.4em] uppercase whitespace-nowrap bg-transparent/40 py-1 px-2 rounded-sm"
           >
             {currentSection} /&gt;
           </motion.div>

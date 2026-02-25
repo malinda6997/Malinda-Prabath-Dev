@@ -45,7 +45,7 @@ const Hero = () => {
       className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden px-[4%] md:pl-[2%]"
     >
       {/* --- Background Video Section --- */}
-      <div className="absolute inset-0 z-0">
+      {/* <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
@@ -56,7 +56,7 @@ const Hero = () => {
           <source src={heroVideo} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0e] via-transparent to-[#0c0c0e] opacity-80"></div>
-      </div>
+      </div> */}
 
       {/* --- Content Section --- */}
       <div className="relative z-10 max-w-5xl text-left">

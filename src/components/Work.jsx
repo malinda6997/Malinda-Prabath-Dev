@@ -162,7 +162,7 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="relative py-40 px-[4%] md:px-[10%] bg-[#0c0c0e] overflow-x-hidden"
+      className="relative py-40 px-[4%] md:px-[10%] bg-transparent overflow-x-hidden"
     >
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-white/[0.015] uppercase pointer-events-none select-none z-0">
         Works
