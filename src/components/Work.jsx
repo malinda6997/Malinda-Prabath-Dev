@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import VanillaTilt from "vanilla-tilt";
 import { motion } from "framer-motion";
-import defaultImg from "../assets/project images/p1.png";
+import defaultImg from "../assets/project images/p1.jpg";
 
 const projects = [
   {
@@ -98,7 +98,6 @@ const ProjectCard = ({ project, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true, margin: "-100px" }}
-      // Mobile වලදී පෑඩින් චුට්ටක් වැඩි කරා
       className={`w-full flex ${isLeft ? "justify-start" : "justify-end"} mb-40 md:mb-72 px-2 md:px-0`}
     >
       <div
@@ -116,19 +115,16 @@ const ProjectCard = ({ project, index }) => {
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out scale-105 group-hover:scale-100"
+              /* Original color එක එන්න මෙතන grayscale අයින් කරලා තියෙන්නේ */
+              className="w-full h-auto transition-all duration-1000 ease-in-out scale-105 group-hover:scale-100"
             />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+            {/* Image එක උඩ තියෙන කළු overlay එකත් අයින් කරන්න ඕන නම් පහළ div එකත් මකන්න */}
+            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500" />
           </div>
 
-          {/* Text Alignment Fix: Mobile වලදී ඇතුළට (left-4), Web වලදී එළියට (md:left-[-20%]) */}
           <div
             className={`absolute top-1/2 -translate-y-1/2 z-30 flex flex-col pointer-events-none w-full md:w-auto
-              ${
-                isLeft
-                  ? "left-4 md:left-[-20%] items-start text-left"
-                  : "right-4 md:right-[-20%] items-end text-right"
-              }`}
+              ${isLeft ? "left-4 md:left-[-20%] items-start text-left" : "right-4 md:right-[-20%] items-end text-right"}`}
             style={{ transform: "translateZ(80px)" }}
           >
             <span
@@ -138,7 +134,6 @@ const ProjectCard = ({ project, index }) => {
               {project.id} // PROJECT
             </span>
 
-            {/* Mobile වලදී අකුරු සයිස් එක පොඩ්ඩක් අඩු කරා කැපෙන්නේ නැති වෙන්න */}
             <h3 className="text-white text-2xl md:text-7xl font-black uppercase tracking-tighter leading-[0.85] drop-shadow-2xl">
               {project.title.split(" ").map((word, i) => (
                 <span key={i} className="block">
@@ -167,7 +162,6 @@ const Work = () => {
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-white/[0.015] uppercase pointer-events-none select-none z-0">
         BLESSED
       </div>
-
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col">
         {projects.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />

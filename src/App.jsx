@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import Lenis from "lenis";
 import VerticalLine from "./components/VerticalLine";
 import Hero from "./components/Hero";
-import Loader from "./components/Loader";
+import NameLoader from "./components/NameLoader"; // අලුත් NameLoader එක import කළා
 import Work from "./components/Work";
 import AboutText from "./components/AboutText";
 import AboutDetails from "./components/AboutDetails";
 import Contact from "./components/Contact";
-import Crosshair from "./components/Crosshair"; // නම හරියටම Crosshair කියලා ගත්තා
 import bgVideo from "./assets/videos/hero-video.mp4";
 
 function App() {
@@ -15,13 +14,20 @@ function App() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.1 });
+    // Lenis smooth scroll - පේජ් එක smooth විදිහට පහළට යන්න උදව් වෙනවා
+    const lenis = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+    });
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
+    // දැනට ඉන්න section එක track කරන්න (Navbar එක සඳහා)
     const handleActiveSection = () => {
       const sections = ["hero", "work", "about", "contact"];
       const scrollPosition = window.scrollY + 300;
@@ -43,20 +49,18 @@ function App() {
     };
 
     window.addEventListener("scroll", handleActiveSection);
-    return () => window.removeEventListener("scroll", handleActiveSection);
+    return () => {
+      window.removeEventListener("scroll", handleActiveSection);
+      lenis.destroy();
+    };
   }, []);
 
   return (
     <div className="bg-[#0c0c0e] min-h-screen text-white selection:bg-[#6366f1]/30 overflow-x-hidden relative">
-      {/* 1. Crosshair - මේක තමයි අර Target එක පෙන්වන්නේ */}
-      {!loading && (
-        <Crosshair
-          color="#6366f1" // අයියගේ Indigo theme එකට ගැළපෙන්න දුන්නා
-          targeted={true}
-        />
-      )}
+      {/* 1. Loader: පලවෙනියටම නම Draw වෙන ඇනිමේෂන් එක පේනවා */}
+      {loading && <NameLoader onFinished={() => setLoading(false)} />}
 
-      {/* Global Background Video Container */}
+      {/* 2. Global Background Video: මේක පේන්නේ ලෝඩ් වුණාට පස්සේ */}
       {!loading && (
         <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none bg-[#0c0c0e]">
           <video
@@ -64,7 +68,7 @@ function App() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-20"
           >
             <source src={bgVideo} type="video/mp4" />
           </video>
@@ -72,10 +76,7 @@ function App() {
         </div>
       )}
 
-      {/* Loader */}
-      {loading && <Loader onFinished={() => setLoading(false)} />}
-
-      {/* Main UI Content */}
+      {/* 3. Main UI Content: ලෝඩ් වෙලා ඉවර වුණාම ලස්සනට මතු වෙනවා */}
       <div
         className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-1000 relative z-10`}
       >
@@ -109,22 +110,22 @@ function App() {
           </div>
         </nav>
 
-        {/* Main Content */}
+        {/* Main Content Areas */}
         <main className="ml-[12%] md:ml-[18%] pr-[5%] md:pr-[4%] text-left relative z-10 bg-transparent">
-          <section id="hero" className="w-full">
+          <section id="hero" className="w-full min-h-screen flex items-center">
             <Hero />
           </section>
 
-          <section id="work" className="w-full">
+          <section id="work" className="w-full pt-32">
             <Work />
           </section>
 
-          <section id="about" className="w-full">
+          <section id="about" className="w-full pt-32">
             <AboutText />
             <AboutDetails />
           </section>
 
-          <section id="contact" className="w-full">
+          <section id="contact" className="w-full pt-32 pb-20">
             <Contact />
           </section>
         </main>

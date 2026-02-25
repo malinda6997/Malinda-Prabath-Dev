@@ -14,25 +14,25 @@ const Contact = () => {
     {
       name: "in/malinda-prabath",
       icon: <FaLinkedin />,
-      url: "#",
+      url: "https://www.linkedin.com/in/malinda-prabath-b401271a0/",
       color: "group-hover:text-[#6366f1]",
     },
     {
-      name: "@Malinda_Insta",
+      name: "@malinda.prabath",
       icon: <FaInstagram />,
-      url: "#",
+      url: "https://www.instagram.com/malinda.prabath/",
       color: "group-hover:text-[#6366f1]",
     },
     {
-      name: "github.com/malinda",
+      name: "github.com/malinda6997",
       icon: <FaGithub />,
-      url: "#",
+      url: "https://github.com/malinda6997",
       color: "group-hover:text-[#6366f1]",
     },
     {
       name: "fb.com/malinda",
       icon: <FaFacebook />,
-      url: "#",
+      url: "https://web.facebook.com/malinda.prabath.9465",
       color: "group-hover:text-[#6366f1]",
     },
   ];
@@ -57,7 +57,7 @@ const Contact = () => {
             <h3 className="text-white text-lg md:text-xl font-bold mb-8 md:mb-10 tracking-tight">
               Find me on:
             </h3>
-            {/* Mobile එකේදී grid-cols-1 කරා එතකොට අකුරු කැපෙන්නේ නැහැ */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-12">
               {socialLinks.map((link, index) => (
                 <motion.a

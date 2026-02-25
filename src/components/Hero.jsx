@@ -41,28 +41,24 @@ const Hero = () => {
   return (
     <section
       id="hero"
-
       className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden px-[4%] md:pl-[2%]"
     >
-
-
       {/* --- Content Section --- */}
       <div className="relative z-10 max-w-5xl text-left">
         <div className="relative z-10 max-w-5xl text-left">
           <h1 className="text-white text-4xl sm:text-5xl md:text-[80px] font-black leading-[1.3] md:leading-[1.1] tracking-tighter">
-            Hi, I'm <span className="text-[#da811b]">Malinda  </span>
-             Prabath.
+            Hi, I'm <span className="text-[#6366f1]">Malinda </span>
+            Prabath.
             <br />
             <span className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4">
-              I <span className="italic text-[#da811b] font-serif">design</span>{" "}
+              I <span className="italic text-[#6366f1] font-serif">design</span>{" "}
               and develop
             </span>
-            
             <div className="flex items-center mt-4 md:mt-2">
               <span className="font-mono text-[0.55em] md:text-[0.60em] opacity-80 text-white lowercase italic min-h-[1.2em]">
                 {displayText}
               </span>
-              <span className="inline-block w-[3px] md:w-[5px] h-[25px] md:h-[50px] bg-[#ffb700] ml-4 animate-pulse"></span>
+              <span className="inline-block w-[3px] md:w-[5px] h-[25px] md:h-[50px] bg-[#3758dc] ml-4 animate-pulse"></span>
             </div>
           </h1>
 
